@@ -22,13 +22,13 @@ precision_r = 0.2
 
 #Select units, jupter or earth
 units = 'earth'
-units = 'jupiter'
+#units = 'jupiter'
 
 #select the mass and radius range with units "units"
-min_m = 1/317.83 
+min_m = 1.0
 max_m = 20.0
-min_r = 0
-max_r = 2.5
+min_r = 1
+max_r = 3.0
 
 #Figure size in inches 
 fsize = 20
@@ -89,7 +89,6 @@ if ( units == 'jupiter' ):
   newzeng[0] = newzeng[0] / mfact
   newzeng[1:] = newzeng[1:] / rfact
 
-
 a = fsize/2.56
 plt.figure(1,figsize=(a,a/1.618))
 plt.minorticks_on()
@@ -104,6 +103,7 @@ plt.xlim(min_m,max_m)
 plt.semilogx()
 plt.tick_params(labelsize=fsize)
 
+#Shall I plot the zeng models?
 if ( is_plot_zeng_models ): 
   plt.plot(newzeng[0],newzeng[1],color='#800000',label='$\mathrm{Fe}$')
   plt.plot(newzeng[0],newzeng[2],'--',color='#B22222',label='50%$\mathrm{Fe}$-50%$\mathrm{MgSiO}_3$')
@@ -112,5 +112,7 @@ if ( is_plot_zeng_models ):
   plt.plot(newzeng[0],newzeng[9],'c',label='$\mathrm{H_2O}$')
 
 for o in good_index:
-  plt.errorbar(m[o],r[o],yerr=[[rre[o],rle[o]]],xerr=[[mre[o],mle[o]]],fmt='o')
+  plt.errorbar(m[o],r[o],yerr=[[rre[o],rle[o]]],xerr=[[mre[o],mle[o]]],fmt='o',color='#C0C0C0')
+plt.legend(loc=0, ncol=1,scatterpoints=1,numpoints=1,frameon=False)
+plt.savefig('plot_mr.pdf',format='pdf',bbox_inches='tight')
 plt.show()
