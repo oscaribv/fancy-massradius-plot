@@ -16,7 +16,7 @@ sns.set_color_codes()
 #--User controls--#
 #-----------------#
 
-#Select the precision in error bars for the planets 1 is 100%, 0.5 is 50%
+#Select the precision in error bars for the planets 1 is 100%, 0.5 is 50%, etc.
 precision_m = 0.2
 precision_r = 0.2
 
@@ -30,13 +30,14 @@ max_m = 20.0
 min_r = 1
 max_r = 3.0
 
+#Some plot controls
 #Figure size in inches 
 fsize = 20
-
 is_plot_zeng_models = True
+is_plot_my_planets = True
 
 #----------------------------------------------------------------
-#All the magic!
+#                 All the magic stars!
 #----------------------------------------------------------------
 
 #Default jupiter to earth masses transformation
@@ -79,6 +80,13 @@ print "Precision in m better than ", precision_m
 print "Precision in r better than ", precision_r
 
 #----------------------------------------------------------
+#   Load my_planets.csv data
+#----------------------------------------------------------
+pnam = np.loadtxt('my_planets.csv',usecols=[0],dtype=str,unpack=True,delimiter=',')
+myp  = np.loadtxt('my_planets.csv',usecols=[1,2,3,4,5,6],unpack=True,delimiter=',')
+
+
+#----------------------------------------------------------
 #             Add theoretical models
 #----------------------------------------------------------
 
@@ -88,6 +96,13 @@ newzeng = np.loadtxt('newZeng.txt',unpack=True)
 if ( units == 'jupiter' ):
   newzeng[0] = newzeng[0] / mfact
   newzeng[1:] = newzeng[1:] / rfact
+
+#----------------------------------------------------------
+#             Start to create the plot
+#----------------------------------------------------------
+
+mark = ['o', 'D', 's', 'p', 'h', '8', '^', '<', '*', \
+        'v','>','.', 'H', 'd','+']
 
 a = fsize/2.56
 plt.figure(1,figsize=(a,a/1.618))
@@ -105,14 +120,29 @@ plt.tick_params(labelsize=fsize)
 
 #Shall I plot the zeng models?
 if ( is_plot_zeng_models ): 
-  plt.plot(newzeng[0],newzeng[1],color='#800000',label='$\mathrm{Fe}$')
-  plt.plot(newzeng[0],newzeng[2],'--',color='#B22222',label='50%$\mathrm{Fe}$-50%$\mathrm{MgSiO}_3$')
-  plt.plot(newzeng[0],newzeng[6],'y',label='$\mathrm{MgSiO}_3$')
-  plt.plot(newzeng[0],newzeng[8],'b--',label='50%$\mathrm{MgSiO_3}$-50%$\mathrm{H_2O}$')
   plt.plot(newzeng[0],newzeng[9],'c',label='$\mathrm{H_2O}$')
+  plt.plot(newzeng[0],newzeng[8],'b--',label='50%$\mathrm{MgSiO_3}$-50%$\mathrm{H_2O}$')
+  plt.plot(newzeng[0],newzeng[6],'y',label='$\mathrm{MgSiO}_3$')
+  plt.plot(newzeng[0],newzeng[2],'--',color='#B22222',label='50%$\mathrm{Fe}$-50%$\mathrm{MgSiO}_3$')
+  plt.plot(newzeng[0],newzeng[1],color='#800000',label='$\mathrm{Fe}$')
 
+#
+#ADD FORTNEY MODELS LATER
+#
+
+#Plot all the planets 
 for o in good_index:
   plt.errorbar(m[o],r[o],yerr=[[rre[o],rle[o]]],xerr=[[mre[o],mle[o]]],fmt='o',color='#C0C0C0')
+
+#Plot my planets
+if ( is_plot_my_planets ):
+  for o in range(0,len(myp[0])):
+    plt.errorbar(myp[0][o],myp[3][o],yerr=[[myp[4][o],myp[5][o]]],xerr=[[myp[1][o],myp[2][o]]],fmt=mark[o],label=pnam[o])
+
 plt.legend(loc=0, ncol=1,scatterpoints=1,numpoints=1,frameon=False)
 plt.savefig('plot_mr.pdf',format='pdf',bbox_inches='tight')
 plt.show()
+
+#----------------------------------------------------------
+#                     END OF FILE
+#----------------------------------------------------------
