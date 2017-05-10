@@ -101,8 +101,14 @@ if ( units == 'jupiter' ):
 #             Start to create the plot
 #----------------------------------------------------------
 
-mark = ['o', 'D', 's', 'p', 'h', '8', '^', '<', '*', \
+mark = ['D', 's', 'p', 'h', '8', '^', '<', '*', \
         'v','>','.', 'H', 'd','+']
+
+#Create the xtics, this method is brute force!
+xtics_vec = [0.01,0.02,0.03,0.04,0.05,0.08,0.1,0.2,0.3,0.4,0.5,0.8,1,2,3,4,5,8,10,20,30,40,50,80,100]
+xtics_vec_str = list(xtics_vec)
+for o in range(0,len(xtics_vec)):
+   xtics_vec_str[o] = str(xtics_vec[o]) 
 
 a = fsize/2.56
 plt.figure(1,figsize=(a,a/1.618))
@@ -113,10 +119,11 @@ if ( units == 'earth' ):
 elif ( units == 'jupiter' ):
   plt.ylabel('Radius ($\mathrm{R_{\mathrm{J}}}$)',fontsize=fsize)
   plt.xlabel('Mass ($\mathrm{M_{\mathrm{J}}}$)',fontsize=fsize)
-plt.ylim(min_r,max_r)
-plt.xlim(min_m,max_m)
 plt.semilogx()
 plt.tick_params(labelsize=fsize)
+plt.xticks(xtics_vec,xtics_vec_str)
+plt.ylim(min_r,max_r)
+plt.xlim(min_m,max_m)
 
 #Shall I plot the zeng models?
 if ( is_plot_zeng_models ): 
