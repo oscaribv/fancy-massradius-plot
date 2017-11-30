@@ -31,7 +31,6 @@ fsize = 25
 is_plot_my_planets = True
 
 
-
 #select the mass and radius range with units "units"
 if ( units == 'jupiter' ):
   min_m = 0.001
@@ -64,9 +63,9 @@ rfact = 11.209
 #I use the well-characterized planets table available at
 #http://www.astro.keele.ac.uk/jkt/tepcat/
 fname = 'allplanets-csv.csv'
-#urlname = 'http://www.astro.keele.ac.uk/jkt/tepcat/allplanets-csv.csv'
+urlname = 'http://www.astro.keele.ac.uk/jkt/tepcat/allplanets-csv.csv'
 #Download the updated table
-#urllib.urlretrieve(urlname, filename=fname)
+urllib.urlretrieve(urlname, filename=fname)
 
 #Read the values of mass and radius
 m,mle,mre,r,rle,rre = np.loadtxt(fname,delimiter=',',unpack=True,usecols=range(26,32),skiprows=1)
