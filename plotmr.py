@@ -18,8 +18,8 @@ sns.set_color_codes()
 #-----------------#
 
 #Select the precision in error bars for the planets 1 is 100%, 0.5 is 50%, etc.
-precision_m = 0.20
-precision_r = 0.2
+precision_m = 0.5
+precision_r = 0.5
 
 #Select units, jupter or earth
 units = 'earth'
@@ -29,6 +29,7 @@ units = 'earth'
 #Figure size in inches 
 fsize = 25
 is_plot_my_planets = True
+is_plot_zeng_models = True
 
 
 #select the mass and radius range with units "units"
@@ -38,7 +39,6 @@ if ( units == 'jupiter' ):
   min_r = 0.0
   max_r = 2.5
   semilog = True
-  is_plot_zeng_models = False
 
 if ( units == 'earth' ):
   min_m = 0.0
@@ -46,14 +46,10 @@ if ( units == 'earth' ):
   min_r = 1.0
   max_r = 3.0
   semilog = False
-  is_plot_zeng_models = True
-#  min_m = 1.0
-#  max_m = 50.0
-#  min_r = 1.0
-#  max_r = 6.0
 
 #----------------------------------------------------------------
 #                 All the magic stars!
+#          Be careful if you modify belong this point
 #----------------------------------------------------------------
 
 #Default jupiter to earth masses transformation
@@ -98,20 +94,16 @@ print "Precision in r better than ", precision_r
 #----------------------------------------------------------
 #   Load my_planets.csv data
 #----------------------------------------------------------
-#----------------------------------------------------------
-#   Load my_planets.csv data
-#----------------------------------------------------------
 pnam = np.loadtxt('my_planets.csv',usecols=[0],dtype=str,unpack=True,delimiter=',')
 mp,mlep,mrep,rp,rlep,rrep  = np.loadtxt('my_planets.csv',usecols=[1,2,3,4,5,6],unpack=True,delimiter=',')
 
-
-if ( units == 'earth' ):
-  mp = mp * mfact
-  mlep = mlep * mfact
-  mrep = mrep * mfact
-  rp = rp * rfact
-  rlep = rlep * rfact
-  rrep = rrep * rfact
+if ( mp.__class__ == np.float64 ):
+  mp = np.asarray([mp])
+  mlep = np.asarray([mlep])
+  mrep = np.asarray([mrep])
+  rp = np.asarray([rp])
+  rlep = np.asarray([rlep])
+  rrep = np.asarray([rrep])
 
 
 #Let us store the index for the planets which are inside the range and have error bars 
@@ -244,13 +236,19 @@ for o in good_index:
 if ( is_plot_my_planets ):
   from random import randint, seed
 
-  pcolors = []
-  seed(2128)
-  for i in range(len(myp[0])):
-      pcolors.append('#00%02X00' % randint(0x88, 0xFF))
+  if ( myp[0].__class__ == np.float64 ):
 
-  for o in range(0,len(myp[0])):
-    plt.errorbar(myp[0][o],myp[3][o],yerr=[[myp[4][o],myp[5][o]]],xerr=[[myp[1][o],myp[2][o]]],fmt='o',color='#c61d01',markersize=fsize/3)
+      plt.errorbar(myp[0],myp[3],yerr=[[myp[4],myp[5]]],xerr=[[myp[1],myp[2]]],fmt='o',markersize=fsize/3)
+
+  else:
+
+    pcolors = []
+    seed(2128)
+    for i in range(len(myp[0])):
+        pcolors.append('#00%02X00' % randint(0x88, 0xFF))
+
+    for o in range(0,len(myp[0])):
+      plt.errorbar(myp[0][o],myp[3][o],yerr=[[myp[4][o],myp[5][o]]],xerr=[[myp[1][o],myp[2][o]]],fmt='o',color='#c61d01',markersize=fsize/3)
     #plt.errorbar(myp[0][o],myp[3][o],yerr=[[myp[4][o],myp[5][o]]],xerr=[[myp[1][o],myp[2][o]]],fmt='o')
     #plt.plot(myp[0][o],myp[3][o],'ro')
     #plt.plot(myp[0][o],myp[3][o],'o',color=pcolors[o])
