@@ -227,10 +227,9 @@ uden_m, uden_r = density_earth(min_m/mf,max_m/mf,uranus_den)
 #Plot all the planets 
 for o in good_index:
   if ( is_plot_my_planets ):
-    plt.errorbar(m[o],r[o],yerr=[[rre[o],rle[o]]],xerr=[[mre[o],mle[o]]],fmt='o',color='#C0C0C0')
+    plt.errorbar(m[o],r[o],yerr=[[rre[o]],[rle[o]]],xerr=[[mre[o]],[mle[o]]],fmt='o',color='#C0C0C0')
   else:
-    plt.errorbar(m[o],r[o],yerr=[[rre[o],rle[o]]],xerr=[[mre[o],mle[o]]],fmt='o',color='b')
-  #plt.plot(m[o],r[o],'o',color='#C0C0C0',alpha=0.75)
+    plt.errorbar(m[o],r[o],yerr=[[rre[o]],[rle[o]]],xerr=[[mre[o]],[mle[o]]],fmt='o',color='b')
 
 #Plot my planets
 if ( is_plot_my_planets ):
