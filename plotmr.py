@@ -171,11 +171,11 @@ plt.xlim(min_m,max_m)
 
 #Shall I plot the zeng models?
 if ( is_plot_zeng_models ): 
-  plt.plot(newzeng[0],newzeng[41],'c',label='$\mathrm{H_2O}$')
-  plt.plot(newzeng[0],newzeng[31],'b--',label='50%$\mathrm{MgSiO_3}$-50%$\mathrm{H_2O}$')
-  plt.plot(newzeng[0],newzeng[21],'y',label='$\mathrm{MgSiO}_3$')
-  plt.plot(newzeng[0],newzeng[11],'--',color='#B22222',label='50%$\mathrm{Fe}$-50%$\mathrm{MgSiO}_3$')
-  plt.plot(newzeng[0],newzeng[1],color='#800000',label='$\mathrm{Fe}$')
+  plt.plot(newzeng[0],newzeng[41],'c',label='$\mathrm{H_2O}$',zorder=1)
+  plt.plot(newzeng[0],newzeng[31],'b--',label='50%$\mathrm{MgSiO_3}$-50%$\mathrm{H_2O}$',zorder=1)
+  plt.plot(newzeng[0],newzeng[21],'y',label='$\mathrm{MgSiO}_3$',zorder=1)
+  plt.plot(newzeng[0],newzeng[11],'--',color='#B22222',label='50%$\mathrm{Fe}$-50%$\mathrm{MgSiO}_3$',zorder=1)
+  plt.plot(newzeng[0],newzeng[1],color='#800000',label='$\mathrm{Fe}$',zorder=1)
 
 #
 #ADD FORTNEY MODELS LATER
