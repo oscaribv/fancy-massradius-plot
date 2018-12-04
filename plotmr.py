@@ -10,7 +10,6 @@ import urllib
 import matplotlib.pyplot as plt
 import seaborn as sns
 sns.set(style='ticks')
-sns.set(style='whitegrid')
 sns.set_color_codes()
 
 #-----------------#
@@ -255,6 +254,9 @@ if ( is_plot_my_planets ):
 titlestr = int(precision_m*1e2)
 titlestr = 'Precision better than = ' + str(titlestr) + '%. N_planets = ' + str(len(good_index))
 plt.title(titlestr,fontsize=0.7*fsize)
+plt.minorticks_on()
+plt.tick_params( axis='x',which='both',direction='in')
+plt.tick_params( axis='y',which='both',direction='in')
 plt.legend(loc=0, ncol=1,scatterpoints=1,numpoints=1,frameon=True,fontsize=0.5*fsize)
 plt.savefig('plot_mr.pdf',format='pdf',bbox_inches='tight')
 plt.savefig('plot_mr.png',format='png',bbox_inches='tight',dpi=300)
