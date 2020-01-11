@@ -1,10 +1,10 @@
-#!/bin/python
 #-----------------------------------------------------------------
 #       This script creates a very nice mass_radius plot
 #                 Oscar Barragan. May, 2017
 #-----------------------------------------------------------------
 
 #Load libraries
+from __future__ import print_function
 import numpy as np
 import urllib
 import matplotlib.pyplot as plt
@@ -17,8 +17,8 @@ sns.set_color_codes()
 #-----------------#
 
 #Select the precision in error bars for the planets 1 is 100%, 0.5 is 50%, etc.
-precision_m = 0.5
-precision_r = 0.5
+precision_m = 1.5
+precision_r = 1.5
 
 #Select units, jupter or earth
 units = 'earth'
@@ -41,9 +41,9 @@ if ( units == 'jupiter' ):
 
 if ( units == 'earth' ):
   min_m = 0.0
-  max_m = 10.0
+  max_m = 40.0
   min_r = 1.0
-  max_r = 3.0
+  max_r = 5.0
   semilog = False
 
 #----------------------------------------------------------------
@@ -84,11 +84,11 @@ for o in range(0,len(m)):
         good_index.append(o)
 
 #Print the details
-print "There are ", len(good_index), 'exoplanets'
-print "between", min_m, ' and ', max_m,' ',units,' masses'
-print "between", min_r, ' and ', max_r,' ',units,' masses'
-print "Precision in m better than ", precision_m
-print "Precision in r better than ", precision_r
+print("There are ", len(good_index), 'exoplanets')
+print("between", min_m, ' and ', max_m,' ',units,' masses')
+print("between", min_r, ' and ', max_r,' ',units,' masses')
+print("Precision in m better than ", precision_m)
+print("Precision in r better than ", precision_r)
 
 #----------------------------------------------------------
 #   Load my_planets.csv data
