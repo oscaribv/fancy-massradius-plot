@@ -1,6 +1,8 @@
 #This file must contain the data of the planets that you want to plot over the mass-radius diagram
 #The units have to be the same that you use inside the mass script
-#Name   mass  min_mass_err   max_mass_err  radius  min_radius_err  max_radius_err
-HD3167b,5.57,0.46,0.46,1.57,0.05,0.05
+#Name   mass  min_mass_err   max_mass_err  radius  min_radius_err  max_radius_err, colour code
+#for colour code you should use a a hexagesimal value for a given colour WITHOUT #, 
+#you can find the colours and values here https://www.colorhexa.com/
+HD3167b,5.57,0.46,0.46,1.57,0.05,0.05,ff0000
 #You can add more planets
-#HD3167c,8.77,1.62,1.62,2.73,0.096,0.096
+HD3167c,8.77,1.62,1.62,2.73,0.096,0.096,0000ff
