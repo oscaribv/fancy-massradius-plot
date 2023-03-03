@@ -1,3 +1,4 @@
 allplanets-csv.csv
 *.pdf
 *.png
+.ipynb_checkpoints/
